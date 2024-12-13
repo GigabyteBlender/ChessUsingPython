@@ -149,37 +149,31 @@ class Chess():#I wasted so much time for this
         """
         Check if a move puts the opponent's king in check.
         """
-        end_row, end_col = end
+        if end != None:
+            end_row, end_col = end
+        else:
+            self.check = False
+            return
         
         if piece[1] == 'P':
             if board[end_row-direction][end_col+1] == check_color+'K' or board[end_row-direction][end_col-1] == check_color+'K':
                 self.check = True
                 return
-            else:
-                self.check = False
                 
         if piece[1] == 'R' or piece[1] == 'Q':
             for i in range(1, 8):
                 if end_row + i < 8 and board[end_row + i][end_col] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
                 if end_row - i >= 0 and board[end_row - i][end_col] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
                 if end_col + i < 8 and board[end_row][end_col + i] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
                 if end_col - i >= 0 and board[end_row][end_col - i] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
                     
             # Check for Bishop and Queen (diagonal line)
         if piece[1] == 'B' or piece[1] == 'Q':
@@ -187,26 +181,15 @@ class Chess():#I wasted so much time for this
                 if end_row + i < 8 and end_col + i < 8 and board[end_row + i][end_col + i] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
-
                 if end_row - i >= 0 and end_col - i >= 0 and board[end_row - i][end_col - i] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
-
                 if end_row + i < 8 and end_col - i >= 0 and board[end_row + i][end_col - i] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
-
                 if end_row - i >= 0 and end_col + i < 8 and board[end_row - i][end_col + i] == check_color + 'K':
                     self.check = True
                     return
-                else:
-                    self.check = False
                     
         # Check for Knight
         if piece[1] == 'N':
@@ -217,8 +200,9 @@ class Chess():#I wasted so much time for this
                     if board[n_row][n_col] == check_color + 'K':
                         self.check = True
                         return
-                    else:
-                        self.check = False
+                        
+        self.check = False
+        return
             
 
     def ischeck(self, board, end, piece):
