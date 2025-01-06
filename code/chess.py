@@ -218,15 +218,18 @@ class Chess():#I wasted so much time for this
             return
         
         for piece in PIECES:
-            end = self.get_piece_position(board, piece)
-            piece_color = piece[0]
-            check_color = 'w' if piece_color == 'b' else 'b'
-            direction = 1 if piece_color == 'w' else -1
-            self.is_check(piece, board, end, direction, check_color)
-                
-            if self.check == True:
-                print(self.check)
-                return
+            try:
+                end = self.get_piece_position(board, piece)
+                piece_color = piece[0]
+                check_color = 'w' if piece_color == 'b' else 'b'
+                direction = 1 if piece_color == 'w' else -1
+                self.is_check(piece, board, end, direction, check_color)
+                    
+                if self.check == True:
+                    print(self.check)
+                    return
+            except:
+                pass
             
     def is_valid_move(self, piece, start, end, board):
         """
@@ -391,7 +394,10 @@ class Chess():#I wasted so much time for this
     # Main function
     def main(self):
         
-        os.environ['SDL_VIDEO_WINDOW_POS'] = '1'
+        x = 100
+        y = 0
+        os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
+        
         pygame.init()
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Chess")
@@ -400,6 +406,7 @@ class Chess():#I wasted so much time for this
         self.check = False
         
         board = self.create_board()
+        
         selected_piece = None
         selected_pos = None
         current_turn = 'w'  # Start with white's turn
