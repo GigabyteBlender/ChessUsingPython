@@ -12,7 +12,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 LIGHT_BROWN = (231, 230, 223)
 DARK_BROWN = (105,146,62)
-HIGHLIGHT_COLOR = (255, 255, 0)
+HIGHLIGHT_COLOR = (253, 253, 150)
 
 # Piece images
 def load_piece_images():
