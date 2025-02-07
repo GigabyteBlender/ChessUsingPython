@@ -15,20 +15,18 @@ DARK_BROWN = (139, 69, 19)
 HIGHLIGHT_COLOR = (255, 255, 0)
 
 # Piece images
-PIECES = {
-    'bK': pygame.transform.scale(pygame.image.load('images/bK.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'bQ': pygame.transform.scale(pygame.image.load('images/bQ.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'bR': pygame.transform.scale(pygame.image.load('images/bR.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'bB': pygame.transform.scale(pygame.image.load('images/bB.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'bN': pygame.transform.scale(pygame.image.load('images/bN.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'bP': pygame.transform.scale(pygame.image.load('images/bP.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'wK': pygame.transform.scale(pygame.image.load('images/wK.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'wQ': pygame.transform.scale(pygame.image.load('images/wQ.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'wR': pygame.transform.scale(pygame.image.load('images/wR.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'wB': pygame.transform.scale(pygame.image.load('images/wB.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'wN': pygame.transform.scale(pygame.image.load('images/wN.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-    'wP': pygame.transform.scale(pygame.image.load('images/wP.png'), (SQUARE_SIZE, SQUARE_SIZE)),
-}
+def load_piece_images():
+    pieces = {}
+    piece_names = ['bK', 'bQ', 'bR', 'bB', 'bN', 'bP', 'wK', 'wQ', 'wR', 'wB', 'wN', 'wP']
+    for name in piece_names:
+        try:
+            pieces[name] = pygame.transform.scale(pygame.image.load(f'images/{name}.png'), (SQUARE_SIZE, SQUARE_SIZE))
+        except pygame.error as e:
+            print(f"Error loading image for {name}: {e}")
+            sys.exit(1)
+    return pieces
+
+PIECES = load_piece_images()
 
 class Menu:
     def draw_text(self, text, font, color, surface, x, y):
@@ -150,7 +148,7 @@ class Chess:
         direction = 1 if piece_color == 'w' else -1
         self.check = self.is_check(piece, board, end, direction, check_color)
 
-        if self.check != None:
+        if self.check is not None:
             if self.check:
                 print(self.check)
                 return
@@ -284,7 +282,7 @@ class Chess:
         menu.main_menu()
 
     def main(self):
-        os.environ['SDL_VIDEO_WINDOW_POS'] = "100,0"
+        os.environ['SDL_VIDEO_WINDOW_POS'] = "1"
         pygame.init()
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Chess")
