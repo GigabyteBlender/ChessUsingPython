@@ -25,7 +25,7 @@ This project is a simple chess game implemented in Python. It allows two human p
 
 3. **Algorithm Design**
    - **Move Validation**: Developing algorithms to check for legal moves for each piece type
-   - **Check Detection**: Implementing logic to determine if a king is in check
+   - **Check and Mate Detection**: Implementing logic to determine if a king is in check
 
 4. **User Input Handling**
    - **Input Validation**: Ensuring user inputs are within the correct format and range
